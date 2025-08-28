@@ -1,0 +1,138 @@
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    Cliente cliente1 = new Cliente("Tomas", "tomasspina@gmail.com", 40, UUID.randomUUID());
+
+        System.out.println("CREAMOS Y MOSTRAMOS AL CLIENTE");
+
+        System.out.println(cliente1.toString());
+
+    Factura factura1 = new Factura(cliente1.nombre, cliente1.email, cliente1.porcentaje, cliente1.id, 1000, LocalDateTime.now());
+
+        System.out.println("Mostramos al cliente con su factura");
+
+        System.out.println(factura1);
+
+    factura1.descuento(40);
+
+        System.out.println("TOTAL DE LA FACTURA MENOS EL 40%");
+
+        System.out.println(factura1);
+    }
+ }
+
+////////////////////CLASE CLIENTE //////////////////////
+import java.util.UUID;
+
+public class Cliente {
+    String nombre;
+    String email;
+    double porcentaje;
+    public UUID id;
+
+    public Cliente(String nombre, String email, double porcentaje, UUID id) {
+        this.nombre = nombre;
+        this.email = email;
+        this.porcentaje = porcentaje;
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public double getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(double porcentaje) {
+        this.porcentaje = porcentaje;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", porcentaje=" + porcentaje +
+                ", id=" + id +
+                '}';
+    }
+}
+/////////////CLASE FACTURA///////////////
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+public class Factura extends Cliente {
+
+    double montoTotal;
+    LocalDateTime now;
+
+
+    public Factura(String nombre, String email, double porcentaje, UUID id, double montoTotal, LocalDateTime now) {
+        super(nombre, email, porcentaje, id);
+        this.montoTotal = montoTotal;
+        this.now = now;
+    }
+
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public LocalDateTime getNow() {
+        return now;
+    }
+
+    public void setNow(LocalDateTime now) {
+        this.now = now;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "montoTotal=" + montoTotal +
+                ", now=" + now +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", porcentaje=" + porcentaje +
+                ", id=" + id +
+                '}';
+    }
+
+    public void descuento (int porcentaje){
+        double aux;
+        aux = (porcentaje * this.montoTotal) / 100;
+
+        this.montoTotal = this.montoTotal - aux;
+
+    }
+}
